@@ -23,6 +23,7 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome(""));
         assertTrue(palindrome.isPalindrome("toohottohoot"));
         assertFalse(palindrome.isPalindrome("abc"));
+        assertTrue(palindrome.isPalindrome("a"));
 
     }
     @Test
