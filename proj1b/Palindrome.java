@@ -19,7 +19,7 @@ public class Palindrome {
         {
             if (word.length()==2)
                 return true;
-            return isPalindrome(word.substring(1,word.length()-2));
+            return isPalindrome(word.substring(1,word.length()-1));
         }
         return false;
     }
