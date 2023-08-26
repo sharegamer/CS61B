@@ -34,7 +34,6 @@ public class         Game {
         // drawn if the same inputs had been given to playWithKeyboard().
 
         TETile[][] finalWorldFrame = null;
-        ter.initialize(WIDTH,HEIGHT);
         finalWorldFrame=new TETile[WIDTH][HEIGHT];
         for(int i=0;i<WIDTH;i+=1)
             for(int j=0;j<HEIGHT;j+=1)
