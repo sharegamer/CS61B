@@ -2,8 +2,9 @@ package byog.Core;
 
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
 
-public class Game {
+public class         Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
@@ -33,6 +34,14 @@ public class Game {
         // drawn if the same inputs had been given to playWithKeyboard().
 
         TETile[][] finalWorldFrame = null;
+        ter.initialize(WIDTH,HEIGHT);
+        finalWorldFrame=new TETile[WIDTH][HEIGHT];
+        for(int i=0;i<WIDTH;i+=1)
+            for(int j=0;j<HEIGHT;j+=1)
+            {
+                finalWorldFrame[i][j]= Tileset.NOTHING;
+            }
+        finalWorldFrame[10][10]=Tileset.FLOWER;
         return finalWorldFrame;
     }
 }
