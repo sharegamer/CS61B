@@ -5,13 +5,14 @@ import edu.princeton.cs.introcs.StdStats;
 import java.util.Random;
 
 public class PercolationStats {
-    public double mean;
-    public double stddev;
-    public double low;
-    public double high;
+    private double mean;
+    private double stddev;
+    private double low;
+    private double high;
     public PercolationStats(int N, int T, PercolationFactory pf)   // perform T independent experiments on an N-by-N grid
     {
-
+        if(N<=0 || T<=0)
+            throw new IllegalArgumentException("N and T must greater than 0");
         double[] array=new double[T];
         int i,j;
         for(int k=0;k<T;k++)
