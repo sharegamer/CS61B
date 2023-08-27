@@ -1,5 +1,6 @@
 package hw2;
 
+import edu.princeton.cs.algs4.Stopwatch;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
@@ -34,7 +35,7 @@ public class Percolation {
             if(array[row][col-1]==1)
                 unionset.union(row*n+col,row*n+col-1);
         if(col<n-1)
-            if(array[row-1][col+1]==1)
+            if(array[row][col+1]==1)
                 unionset.union(row*n+col,row*n+col+1);
         opensite++;
     }
@@ -65,12 +66,22 @@ public class Percolation {
     {
         for(int i=0;i<n;i++)
         {
-            if(isFull(n,i))
+            if(isFull(n-1,i))
                 return true;
         }
         return false;
     }
     public static void main(String[] args)   // use for unit testing (not required)
-    {}
+    {
+        double i,j;
+        Stopwatch s=new Stopwatch();
+        PercolationFactory pf=new PercolationFactory();
+        PercolationStats p=new PercolationStats(30,2000,pf);
+        i=p.mean;
+        j=s.elapsedTime();
+        System.out.println(i);
+        System.out.println(j);
+
+    }
 
 }

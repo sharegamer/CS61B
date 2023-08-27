@@ -12,11 +12,11 @@ public class PercolationStats {
     public PercolationStats(int N, int T, PercolationFactory pf)   // perform T independent experiments on an N-by-N grid
     {
 
-        int[] array=new int[T];
+        double[] array=new double[T];
         int i,j;
-        for(int i=0;i<T;i++)
+        for(int k=0;k<T;k++)
         {
-            int num=0;
+            double num=0;
             Percolation p=pf.make(N);
             while(!p.percolates())
             {
@@ -29,7 +29,7 @@ public class PercolationStats {
                 if(p.percolates())
                     break;
             }
-            array[i]=num;
+            array[k]=num/N/N;
         }
         mean=StdStats.mean(array);
         stddev=StdStats.stddev(array);
