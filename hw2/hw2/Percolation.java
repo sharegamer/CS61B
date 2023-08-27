@@ -24,6 +24,8 @@ public class Percolation {
     {
         if(row<0 || row>=n || col<0 || col>=n)
             throw new IndexOutOfBoundsException("out of index");
+        if(array[row][col]==1)
+            return;
         array[row][col]=1;
         if(row>0){
             if(array[row-1][col]==1)
@@ -33,8 +35,6 @@ public class Percolation {
         if(row<n-1){
             if(array[row+1][col]==1)
                 unionset.union(row*n+col,row*n+col+n);}
-        else
-            unionset.union(n*n-n+col,n*n);
         if(col>0)
             if(array[row][col-1]==1)
                 unionset.union(row*n+col,row*n+col-1);
