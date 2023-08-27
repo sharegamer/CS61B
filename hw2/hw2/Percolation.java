@@ -8,6 +8,7 @@ public class Percolation {
     private int[][] array;
     private int n;
     private int opensite;
+    private boolean procolate;
     public Percolation(int N)                // create N-by-N grid, with all sites initially blocked
     {
         if(N<=0)
@@ -15,6 +16,7 @@ public class Percolation {
         unionset=new WeightedQuickUnionUF(N*N+2);
         n=N;
         opensite=0;
+        procolate=false;
         array=new int[N][N];
         for(int i=0;i<N;i++)
             for(int j=0;j<N;j++)
@@ -35,12 +37,20 @@ public class Percolation {
         if(row<n-1){
             if(array[row+1][col]==1)
                 unionset.union(row*n+col,row*n+col+n);}
+
+
         if(col>0)
             if(array[row][col-1]==1)
                 unionset.union(row*n+col,row*n+col-1);
         if(col<n-1)
             if(array[row][col+1]==1)
                 unionset.union(row*n+col,row*n+col+1);
+        if(!procolate)
+            for(int i=0;i<n;i++)
+            {
+                if(isFull(n-1,i))
+                    procolate=true;
+            }
         opensite++;
     }
     public boolean isOpen(int row, int col)  // is the site (row, col) open?
@@ -65,9 +75,7 @@ public class Percolation {
     }
     public boolean percolates()              // does the system percolate?
     {
-        if(unionset.connected(n*n,n*n+1))
-            return true;
-        return false;
+        return procolate;
     }
     public static void main(String[] args)   // use for unit testing (not required)
     {
