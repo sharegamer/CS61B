@@ -5,18 +5,18 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private WeightedQuickUnionUF unionset;
+    private WeightedQuickUnionUF backwash;
     private int[][] array;
     private int n;
     private int opensite;
-    private boolean procolate;
     public Percolation(int N)                // create N-by-N grid, with all sites initially blocked
     {
         if(N<=0)
             throw new java.lang.IllegalArgumentException("N must greater than 0");
         unionset=new WeightedQuickUnionUF(N*N+2);
+        backwash=new WeightedQuickUnionUF(N*N+1);
         n=N;
         opensite=0;
-        procolate=false;
         array=new int[N][N];
         for(int i=0;i<N;i++)
             for(int j=0;j<N;j++)
@@ -30,27 +30,34 @@ public class Percolation {
             return;
         array[row][col]=1;
         if(row>0){
-            if(array[row-1][col]==1)
-                unionset.union(row*n+col,row*n+col-n);}
-        else
-            unionset.union(col,n*n+1);
+            if(array[row-1][col]==1) {
+                unionset.union(row * n + col, row * n + col - n);
+                backwash.union(row * n + col, row * n + col - n);
+            }
+        }
+        else {
+            unionset.union(col, n * n + 1);
+            backwash.union(col, n*n);
+        }
         if(row<n-1){
-            if(array[row+1][col]==1)
-                unionset.union(row*n+col,row*n+col+n);}
+            if(array[row+1][col]==1){
+                unionset.union(row*n+col,row*n+col+n);
+                backwash.union(row*n+col,row*n+col+n);
+            }
+        }
+        else{
+            unionset.union(col+n*n-n,n*n);
+        }
 
 
         if(col>0)
-            if(array[row][col-1]==1)
+            if(array[row][col-1]==1){
                 unionset.union(row*n+col,row*n+col-1);
+                backwash.union(row*n+col,row*n+col-1);}
         if(col<n-1)
-            if(array[row][col+1]==1)
+            if(array[row][col+1]==1){
                 unionset.union(row*n+col,row*n+col+1);
-        if(!procolate)
-            for(int i=0;i<n;i++)
-            {
-                if(isFull(n-1,i))
-                    procolate=true;
-            }
+                backwash.union(row*n+col,row*n+col+1);}
         opensite++;
     }
     public boolean isOpen(int row, int col)  // is the site (row, col) open?
@@ -65,7 +72,7 @@ public class Percolation {
     {
         if(row<0 || row>=n || col<0 || col>=n)
             throw new IndexOutOfBoundsException("out of index");
-        if(unionset.connected(row*n+col,n*n+1))
+        if(backwash.connected(row*n+col,n*n))
             return true;
         return false;
     }
@@ -75,7 +82,7 @@ public class Percolation {
     }
     public boolean percolates()              // does the system percolate?
     {
-        return procolate;
+        return unionset.connected(n*n,n*n+1);
     }
     public static void main(String[] args)   // use for unit testing (not required)
     {
