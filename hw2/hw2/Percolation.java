@@ -89,7 +89,7 @@ public class Percolation {
         double i,j,k;
         Stopwatch s=new Stopwatch();
         PercolationFactory pf=new PercolationFactory();
-        PercolationStats p=new PercolationStats(300,2000,pf);
+        PercolationStats p=new PercolationStats(150,2000,pf);
         i=p.mean();
         j=s.elapsedTime();
         k=p.stddev();
