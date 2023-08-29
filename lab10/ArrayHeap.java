@@ -188,8 +188,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         if(size()==1)
         {
             size--;
+            T t=contents[1].item();
             contents[1]=null;
-            return contents[1].item();
+            return t;
         }
         else
         {
