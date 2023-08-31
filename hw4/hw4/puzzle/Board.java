@@ -182,9 +182,15 @@ public class Board implements WorldState{
     {
         return manhattan();
     }
-    public boolean equals(Object y)
+    public boolean equals(Object o)
     {
-        Board x=(Board) y;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Board x=(Board) o;
         if(size!=x.size())
             return false;
         for(int i=0;i<tiles[0].length;i++)
@@ -209,6 +215,5 @@ public class Board implements WorldState{
         s.append("\n");
         return s.toString();
     }
-
 
 }

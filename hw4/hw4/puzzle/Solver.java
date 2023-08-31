@@ -96,4 +96,10 @@ public class Solver {
     {
         return way;
     }
+
+    @Override
+    public int hashCode() {
+
+        return steps;
+    }
 }
