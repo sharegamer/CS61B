@@ -76,8 +76,10 @@ public class TestGraphBuildingTiny {
     public void testClosest() {
         double lon = 0.4;
         double lat = 38.51;
+        System.out.println(graphTiny.vertices());
         assertEquals("Make sure you're using the great circle distance, "
                 + "especially if your actual value is 46",
                 55L, graphTiny.closest(lon, lat));
+
     }
 }
