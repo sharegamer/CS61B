@@ -31,7 +31,6 @@ public class Router {
                                           double destlon, double destlat) {
         Long nextId = g.closest(stlon, stlat);
         long destId = g.closest(destlon, destlat);
-
         PriorityQueue<Long> fringe = new PriorityQueue<>(10, distanceComparator);
         Map<Long, Long> edgeTo = new HashMap<>();
         distBest = new HashMap<>();

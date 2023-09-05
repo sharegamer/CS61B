@@ -57,4 +57,12 @@ public class CountingSortTester {
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(CountingSortTester.class);
     }
+    @Test
+    public void testradixsort()
+    {
+        String[] strings=new String[]{"bac","abc","cba","ca"};
+        strings=RadixSort.sort(strings);
+        String[] sort=new String[]{"abc","bac","ca","cba"};
+        assertEquals(strings,sort);
+    }
 }
