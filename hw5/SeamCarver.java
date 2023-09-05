@@ -10,7 +10,7 @@ public class SeamCarver {
     }
     public Picture picture()                       // current picture
     {
-        return picture;
+        return new Picture(picture);
     }
     public     int width()                         // width of current picture
     {
@@ -52,6 +52,8 @@ public class SeamCarver {
         for(int i=1;i<width();i++)
             for(int j=0;j<height();j++)
             {
+                if(height()==1)
+                    return new int[width()];
                 if(j==0)
                 {
                     if (pathen[i - 1][0] > pathen[i - 1][1]) {
@@ -120,6 +122,8 @@ public class SeamCarver {
         for(int i=1;i<height();i++)
             for(int j=0;j<width();j++)
             {
+                if(width()==1)
+                    return new int[height()];
                 if(j==0)
                 {
                     if (pathen[0][i-1] > pathen[1][i-1]) {
@@ -138,16 +142,16 @@ public class SeamCarver {
                         pre[j][i] = width() - 1;
                     }
                 } else {
-                    double min=Math.min(Math.min(pathen[j-1][i-1],pathen[j][i-1]),pathen[j+1][i]);
+                    double min=Math.min(Math.min(pathen[j-1][i-1],pathen[j][i-1]),pathen[j+1][i-1]);
                     if(pathen[j-1][i-1]==min)
                     {
                         pathen[j][i]=pathen[j-1][i-1]+energy[j][i];
                         pre[j][i]=j-1;
                     } else if (pathen[j ][i-1] == min) {
-                        pathen[i][j] = pathen[j][i-1] + energy[j][i];
+                        pathen[j][i] = pathen[j][i-1] + energy[j][i];
                         pre[j][i] = j;
                     } else {
-                        pathen[j][i]=pathen[j+1][i]+energy[j][i];
+                        pathen[j][i]=pathen[j+1][i-1]+energy[j][i];
                         pre[j][i]=j+1;
                     }
                 }
@@ -172,11 +176,17 @@ public class SeamCarver {
     }
     public    void removeHorizontalSeam(int[] seam)   // remove horizontal seam from picture
     {
-        SeamRemover.removeHorizontalSeam(picture,findHorizontalSeam());
+        for(int j=0;j<seam.length-1;j++)
+            if(Math.abs(seam[j]-seam[j+1])>1)
+                throw new IllegalArgumentException();
+        SeamRemover.removeHorizontalSeam(picture,seam);
     }
     public    void removeVerticalSeam(int[] seam)     // remove vertical seam from picture
     {
-        SeamRemover.removeVerticalSeam(picture,findVerticalSeam());
+        for(int j=0;j<seam.length-1;j++)
+            if(Math.abs(seam[j]-seam[j+1])>1)
+                throw new IllegalArgumentException();
+        SeamRemover.removeVerticalSeam(picture,seam);
     }
 }
 
