@@ -98,6 +98,7 @@ public class SampleCreature extends Creature {
                 Direction moveDir = HugLifeUtils.randomEntry(empties);
                 return new Action(Action.ActionType.MOVE, moveDir);
             }
+
         }
 
         return new Action(Action.ActionType.STAY);
