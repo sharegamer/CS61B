@@ -9,7 +9,7 @@ public class HugLife {
     /** Size of the world. Probably best to keep this under 100 
       *  or so.
      */
-    public static final int WORLD_SIZE = 15;
+    public static final int WORLD_SIZE = 50;
 
     /** Maximum number of cycles to simulate by default. */
     public static final int MAX_CYCLES = 1000;
