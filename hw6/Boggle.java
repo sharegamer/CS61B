@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Stopwatch;
 
 public class Boggle {
     
@@ -46,17 +47,20 @@ public class Boggle {
         String[] wordtable=charstream.readAllStrings();
         width=wordtable[0].length();
         height=wordtable.length;
+        table=new char[height][width];
         for(int i=0;i<wordtable.length;i++)
             if(wordtable[i].length()!=width)
                 throw new IllegalArgumentException("not rectangular");
-        table=new char[height][width];
+            else
+                for(int j=0;j<width;j++)
+                   table[i][j]=wordtable[i].charAt(j);
+
         visited=new boolean[height][width];
         charstream=new In(boardFilePath);
         w=width;
         h=height;
-        for(int i=0;i<height;i++)
-            for(int j=0;j<width;j++)
-                table[i][j]=wordtable[i].charAt(j);
+
+
         PriorityQueue<comparestring> finedword=new PriorityQueue<>();
         toadd=new ArrayList<>();
         List<String> finalstring=new ArrayList<>();
@@ -131,7 +135,9 @@ public class Boggle {
         }
     }
     public static void main(String[] args) {
+        Stopwatch stopwatch=new Stopwatch();
         System.out.println(Boggle.solve(7,"exampleBoard.txt").toString());
+        System.out.println(stopwatch.elapsedTime());
     }
 }
 
